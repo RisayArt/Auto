@@ -31,4 +31,8 @@ class CreatePostsTable extends Migration
     {
         Schema::dropIfExists('posts');
     }
+
+    public function tags(){
+        return $this->MorphToMany('App/Tag', 'Taggable');
+    }
 }

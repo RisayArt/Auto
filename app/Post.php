@@ -11,4 +11,8 @@ class Post extends Model
         'title',
         'body'
     ];
+
+    public function tags(){
+        return $this->morphToMany('App\Tag', 'taggable');
+    }
 }

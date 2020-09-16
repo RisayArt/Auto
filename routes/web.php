@@ -1,9 +1,14 @@
 <?php
 
 use App\Address;
+use App\Tag;
 use App\User;
 use App\Post;
 use App\Role;
+use App\Staff;
+use App\Photo;
+use App\Product;
+use App\Video;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -144,4 +149,105 @@ Route::get('/post', 'PostController@getPostList');
 //   $user->roles()->sync([4]);
 //});
 //END MANY TO MANY
+
+
+//HAS MANY
+
+//Route::get('/create', function(){
+//   $staff = Staff::findOrFail(1);
+//   $staff->photos()->create(['path'=>'example.php']);
+//});
+
+//Route::get('/createp', function(){
+//   $product = Product::findOrFail(1);
+//   $product->photos()->create(['path' => 'product.php']);
+//});
+
+
+//Route::get('/read', function(){
+//   $staff = Staff::findOrFail(1);
+//   foreach ($staff->photos as $photo){
+//       return $photo->path;
+//   }
+//});
+
+//Route::get('/readp', function(){
+//    $product = Product::findOrFail(1);
+//    foreach ($product->photos as $photo){
+//        return $photo->path;
+//    }
+//});
+
+
+//Route::get('update', function(){
+//   $staff = Staff::findOrFail(1);
+//   $photo = $staff->photos()->where('id', 1)->first();
+//   $photo->path = 'udated.jpg';
+//   $photo->save();
+//});
+
+//Route::get('/updatee', function(){
+//   $staff = Staff::findOrFail(1);
+//   foreach ($staff->photos as $photo){
+//       $photo->path = 'update.jpg';
+//       $photo->save();
+//       return 'updated';
+//   }
+//});
+
+//
+//Route::get('/delete', function(){
+//   $staff = Staff::findOrFail(1);
+//   $staff->photos()->where('id', 1)->delete();
+//   return 'deleted';
+//
+//});
+//
+//Route::get('/assign', function(){
+//    $staff = Staff::findOrFail(1);
+//    $photo = Photo::findOrFail(2);
+//    $staff->photos()->save($photo);
+//});
+
+//Route::get('unassign', function(){
+//   $staff = Staff::findOrFail(1);
+//   $staff->photos()->where('id', 3)->update(['imageable_id'=>'', 'imageable_type'=>'']);
+//});
+
+//Has Many ENDS
+
+
+//POLYMORPHIC MANY TO MANY
+
+Route::get('/create', function(){
+   $post = Post::create(['title' => 'New Post', 'body' => 'Body of Post']);
+   $tag1 = Tag::findOrFail(1);
+   $post->tags()->save($tag1);
+
+   $video = Video::create(['name' => 'abc.mov']);
+   $tag2 = Tag::findOrFail(2);
+   $video->tags()->save($tag2);
+});
+
+
+Route::get('/read', function(){
+   $post = Post::findOrFail(8);
+   foreach ($post->tags as $tag){
+       echo $tag;
+   }
+});
+
+Route::get('/update', function(){
+//   $post = Post::findOrFail(8);
+//   foreach ($post->tags as $tag){
+//       $tag->where('id', 1)->update(['name' => 'changing']);
+//       $tag->save();
+//       return 'Done';
+//   }
+    $post = Post::findOrFail(8);
+    $tag = Tag::findOrFail(2);
+    $post->tags()->save($tag);
+    $post->tags()->attach($tag);
+    $post->tags()->sync([1]);
+});
 
