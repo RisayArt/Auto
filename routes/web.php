@@ -27,7 +27,7 @@ Route::get('/', function () {
 
 });
 
-Route::get('/post', 'PostController@getPostList');
+Route::get('/wordpress', 'PostController@getPostList');
 
 //ONE TO ONE CRUD METHODS
 //Route::get('/insert', function (){
@@ -219,35 +219,45 @@ Route::get('/post', 'PostController@getPostList');
 
 //POLYMORPHIC MANY TO MANY
 
-Route::get('/create', function(){
-   $post = Post::create(['title' => 'New Post', 'body' => 'Body of Post']);
-   $tag1 = Tag::findOrFail(1);
-   $post->tags()->save($tag1);
-
-   $video = Video::create(['name' => 'abc.mov']);
-   $tag2 = Tag::findOrFail(2);
-   $video->tags()->save($tag2);
-});
-
-
-Route::get('/read', function(){
-   $post = Post::findOrFail(8);
-   foreach ($post->tags as $tag){
-       echo $tag;
-   }
-});
-
-Route::get('/update', function(){
+//Route::get('/create', function(){
+//   $post = Post::create(['title' => 'New Post', 'body' => 'Body of Post']);
+//   $tag1 = Tag::findOrFail(1);
+//   $post->tags()->save($tag1);
+//
+//   $video = Video::create(['name' => 'abc.mov']);
+//   $tag2 = Tag::findOrFail(2);
+//   $video->tags()->save($tag2);
+//});
+//
+//
+//Route::get('/read', function(){
+//   $post = Post::findOrFail(8);
+//   foreach ($post->tags as $tag){
+//       echo $tag;
+//   }
+//});
+//
+//Route::get('/update', function(){
 //   $post = Post::findOrFail(8);
 //   foreach ($post->tags as $tag){
 //       $tag->where('id', 1)->update(['name' => 'changing']);
 //       $tag->save();
 //       return 'Done';
-//   }
-    $post = Post::findOrFail(8);
-    $tag = Tag::findOrFail(2);
-    $post->tags()->save($tag);
-    $post->tags()->attach($tag);
-    $post->tags()->sync([1]);
-});
+//
+//    $post = Post::findOrFail(8);
+//    $tag = Tag::findOrFail(2);
+//    $post->tags()->save($tag);
+//    Attach tags to post
+//    $post->tags()->attach($tag);
+//    Assign all posts tao id 1
+//    $post->tags()->sync([1]);
+//});
+//
+//Route::get('/delete', function(){
+//    $post = Post::findOrFail(8);
+//    foreach ($post->tags as $tag){
+//        $tag->where('id', 1)->delete();
+//    }
+//});
+
 
