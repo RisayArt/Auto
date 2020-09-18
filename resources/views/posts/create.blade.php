@@ -1,10 +1,12 @@
 @extends('layouts.app')
 
 
-@yield('content')
+@section('content')
 
 
 <form method="post" action="/posts">
+
+    @csrf
 
     <input type="text" name="title">
 
@@ -14,3 +16,4 @@
 
 
 @yield('footer')
+
