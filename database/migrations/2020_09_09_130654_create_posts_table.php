@@ -17,7 +17,7 @@ class CreatePostsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned()->nullable()->index();
             $table->string('title');
-            $table->text('body');
+            $table->text('content')->nullable();
             $table->timestamps();
         });
     }
@@ -32,7 +32,5 @@ class CreatePostsTable extends Migration
         Schema::dropIfExists('posts');
     }
 
-    public function tags(){
-        return $this->MorphToMany('App/Tag', 'Taggable');
-    }
+
 }

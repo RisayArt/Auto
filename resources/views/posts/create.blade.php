@@ -10,10 +10,11 @@
 
     <input type="text" name="title">
 
+    <input type="text" name="body">
+
     <input type="submit" name="submit">
 
 </form>
 
 
-@yield('footer')
-
+@endsection
